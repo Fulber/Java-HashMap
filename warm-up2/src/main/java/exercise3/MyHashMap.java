@@ -26,22 +26,57 @@ public class MyHashMap {
     }
 
     public String get(String key) {
-        // TODO
+
+        for(LinkedList<MyEntry> s : buckets) {
+            if (s != null) {
+                if (s.getFirst().getKey().equals(key)) {
+                    return s.toString();
+                }
+            }
+        }
+
         return null;
     }
 
     public void put(String key, String value) {
-        // TODO
+
+        int index = 0;
+
+        if (key != null)
+            index = Math.abs (key.hashCode()) % this.capacity;
+
+        for (MyEntry entry : buckets.get(index)) {
+            if (entry.getKey().equals(key)) {
+                entry.setValue(value);
+                return;
+            }
+        }
+        buckets.get(index).add(new MyEntry(key, value));
     }
 
     public Set<String> keySet() {
-        // TODO
-        return null;
+
+        Set <String> mySet = new HashSet<String>();
+
+        for(LinkedList<MyEntry> it : buckets){
+            for(MyEntry entry : it){
+                mySet.add(entry.getKey());
+            }
+        }
+        return mySet;
     }
 
     public Collection<String> values() {
-        // TODO
-        return null;
+
+        Collection <String> myCollection = new HashSet<String>();
+
+        for(LinkedList<MyEntry> it : buckets){
+            for(MyEntry entry : it){
+                myCollection.add(entry.getValue());
+            }
+        }
+
+        return myCollection;
     }
 
     public String remove(String key) {
@@ -50,32 +85,63 @@ public class MyHashMap {
     }
 
     public boolean containsKey(String key) {
-        // TODO
+
+        for (LinkedList<MyEntry> entries : buckets) {
+            for (MyEntry entry : entries) {
+                if (entry.getKey().equals(key)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     public boolean containsValue(String value) {
-        // TODO
+
+        for (LinkedList<MyEntry> entries : buckets) {
+            for (MyEntry entry : entries) {
+                if (entry.getValue().equals(value)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     public int size() {
-        // TODO Return the number of the Entry objects stored in all the buckets
-        return 0;
+
+        int size = 0;
+
+        for (LinkedList<MyEntry> entries : buckets) {
+            size += entries.size();
+        }
+        return size;
     }
 
     public void clear() {
-        // TODO Remove all the Entry objects from the bucket list
+
+        for (LinkedList<MyEntry> entries : buckets) {
+            entries.clear();
+        }
     }
 
     public Set<MyEntry> entrySet() {
-        // TODO Return a Set containing all the Entry objects
-        return null;
+
+        Set<MyEntry> entrySet = new HashSet<MyEntry>();
+
+        for (LinkedList<MyEntry> entries : buckets) {
+            entrySet.addAll(entries);
+        }
+        return entrySet;
     }
 
     public boolean isEmpty() {
-        // TODO
-        return false;
+
+        for (LinkedList<MyEntry> entries : buckets) {
+            if (entries.size() > 0)
+                return false;
+        }
+        return true;
     }
 
     public static class MyEntry {
