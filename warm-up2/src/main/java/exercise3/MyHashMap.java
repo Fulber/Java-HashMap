@@ -27,6 +27,7 @@ public class MyHashMap {
 
     public String get(String key) {
         // TODO
+
         return null;
     }
 
@@ -36,12 +37,29 @@ public class MyHashMap {
 
     public Set<String> keySet() {
         // TODO
-        return null;
+        Set <String> mySet = new HashSet<String>();
+
+        for(LinkedList<MyEntry> it : buckets){
+            for(MyEntry entry : it){
+                mySet.add(entry.getKey());
+            }
+        }
+
+
+        return mySet;
     }
 
     public Collection<String> values() {
         // TODO
-        return null;
+        Collection <String> myCollection = new HashSet<String>();
+
+        for(LinkedList<MyEntry> it : buckets){
+            for(MyEntry entry : it){
+                myCollection.add(entry.getValue());
+            }
+        }
+
+        return myCollection;
     }
 
     public String remove(String key) {
