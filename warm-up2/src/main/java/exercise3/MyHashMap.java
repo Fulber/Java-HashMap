@@ -26,7 +26,13 @@ public class MyHashMap {
     }
 
     public String get(String key) {
-        // TODO
+        for(LinkedList<MyEntry> s : buckets) {
+            if (s != null) {
+                if (s.getFirst().getKey().equals(key)) {
+                    return s.toString();
+                }
+            }
+        }
         return null;
     }
 
