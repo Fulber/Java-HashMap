@@ -3,6 +3,13 @@ package exercise3;
 import java.util.*;
 
 /**
+ * Negoita Ovidiu - Fulber
+ * Bottea Alexandru
+ * Cristian Gabriel
+ * Micu Diana
+ */
+
+/**
  * Exercise 3. Implement a HashMap from scratch. In order to pass all the tests
  * you need to implement all the methods defined below. The key-value pair will
  * be encapsulated in the MyHashMap.MyEntry object defined below.
@@ -27,14 +34,13 @@ public class MyHashMap {
 
     public String get(String key) {
 
-        for(LinkedList<MyEntry> s : buckets) {
-            if (s != null) {
-                if (s.getFirst().getKey().equals(key)) {
-                    return s.toString();
+        for (LinkedList<MyEntry> s : buckets) {
+            for (MyEntry entry : s) {
+                if (entry.getKey().equals(key)) {
+                    return entry.getValue();
                 }
             }
         }
-
         return null;
     }
 
@@ -80,7 +86,18 @@ public class MyHashMap {
     }
 
     public String remove(String key) {
-        // TODO Returns the value associated with the key removed from the map or null if the key wasn't found
+
+        int index = 0;
+
+        if (key != null)
+            index = Math.abs (key.hashCode()) % this.capacity;
+
+        for (MyEntry entry : buckets.get(index)) {
+            if (entry.getKey().equals(key)) {
+                buckets.get(index).remove(entry);
+                return entry.getValue();
+            }
+        }
         return null;
     }
 
